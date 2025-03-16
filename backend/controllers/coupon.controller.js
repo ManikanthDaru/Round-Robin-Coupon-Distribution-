@@ -50,7 +50,7 @@ export const claimCoupon = async (req, res) => {
 
     // Mark coupon as claimed
     coupon.isClaimed = true;
-    coupon.isClaimedBy = userIPs[0];
+    coupon.isClaimedBy = userIPs;
     await coupon.save();
 
     // Store claim record

@@ -20,7 +20,8 @@ export const getCoupons = async (req, res) => {
 
 // Claim a coupon
 export const claimCoupon = async (req, res) => {
-  const userIP = req.ip;
+  const userIP = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+
   const userSession = generateSessionId(req);
 
     try {

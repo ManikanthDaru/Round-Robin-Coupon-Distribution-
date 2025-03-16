@@ -20,27 +20,26 @@ export const getCoupons = async (req, res) => {
 
 // Claim a coupon
 export const claimCoupon = async (req, res) => {
-const userIPs = req.headers["x-forwarded-for"]
-      ? req.headers["x-forwarded-for"].split(",").map(ip => ip.trim())  // Get all IPs from proxy
-      : [req.socket.remoteAddress]; 
+  const userIPs = req.headers["x-forwarded-for"]
+    ? req.headers["x-forwarded-for"].split(",").map((ip) => ip.trim()) // Get all IPs from proxy
+    : [req.socket.remoteAddress]; // Fallback to direct IP
 
-  const userSession = generateSessionId(req);
+  const userSession = generateSessionId(req); // Use existing session or generate new one
 
-    try {
-      // checks if any coupon is claimed with the specific IP or sessionId
+  console.log("Received a coupon claim request!");
+  console.log("User IPs:", userIPs); // Debugging
+  console.log("Session ID:", userSession); // Debugging
+
+  try {
+    // checks if any coupon is claimed with the specific IP or sessionId
     const existingClaim = await Claim.findOne({
-      $or: [
-        { ip: { $in: userIPs } },  // Check if any IP matches
-        { sessionId: userSession } // Check if session matches
-      ],
+      $or: [{ ip: { $in: userIPs } }, { sessionId: userSession }],
     });
 
     if (existingClaim) {
-      return res
-        .status(400)
-        .json({
-          message: "You have already claimed a coupon. Try again later.",
-        });
+      return res.status(400).json({
+        message: "You have already claimed a coupon. Try again later.",
+      });
     }
 
     const coupon = await Coupon.findOne({ isClaimed: false });
@@ -50,7 +49,7 @@ const userIPs = req.headers["x-forwarded-for"]
     }
 
     // Mark coupon as claimed
-      coupon.isClaimed = true;
+    coupon.isClaimed = true;
     coupon.isClaimedBy = userIPs[0];
     await coupon.save();
 

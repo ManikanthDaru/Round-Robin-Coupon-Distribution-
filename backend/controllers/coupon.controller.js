@@ -51,12 +51,12 @@ const userIPs = req.headers["x-forwarded-for"]
 
     // Mark coupon as claimed
       coupon.isClaimed = true;
-    coupon.isClaimedBy = userIP;
+    coupon.isClaimedBy = userIPs[0];
     await coupon.save();
 
     // Store claim record
     const newClaim = new Claim({
-      ip: userIP,
+      ip: userIPs,
       sessionId: userSession,
       coupon: coupon._id,
     });

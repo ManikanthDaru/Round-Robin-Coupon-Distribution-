@@ -11,7 +11,7 @@ const GuestPage = () => {
     setLoading(true);
     axios
       .post(
-        "http://localhost:5000/api/coupons/claim",
+        "https://round-robin-coupon-distribution-backend.onrender.com/api/coupons/claim",
         {}
       )
       .then((response) => {

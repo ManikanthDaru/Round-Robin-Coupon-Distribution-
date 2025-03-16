@@ -6,7 +6,9 @@ const UserClaimHistory = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/claims")
+      .get(
+        "https://round-robin-coupon-distribution-backend.onrender.com/api/claims"
+      )
       .then((response) => setClaims(response.data))
       .catch((error) => console.error("Error fetching claims:", error));
   }, []);

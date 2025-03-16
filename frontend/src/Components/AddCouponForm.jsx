@@ -8,10 +8,13 @@ const AddCouponForm = ({ onCouponAdded }) => {
   const addCoupon = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/coupons/add", {
-        couponCode,
-        description,
-      });
+      await axios.post(
+        "https://round-robin-coupon-distribution-backend.onrender.com/api/coupons/add",
+        {
+          couponCode,
+          description,
+        }
+      );
       onCouponAdded();
       setCouponCode("");
       setDescription("");

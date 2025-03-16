@@ -11,7 +11,9 @@ const CouponTable = () => {
 
   const fetchCoupons = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/coupons");
+      const response = await axios.get(
+        "https://round-robin-coupon-distribution-backend.onrender.com/api/coupons"
+      );
       setCoupons(response.data);
     } catch (error) {
       console.error("Error fetching coupons:", error);
@@ -20,7 +22,9 @@ const CouponTable = () => {
 
   const toggleCoupon = async (id) => {
     try {
-      await axios.patch(`http://localhost:5000/api/coupons/toggle/${id}`);
+      await axios.patch(
+        `https://round-robin-coupon-distribution-backend.onrender.com/api/coupons/toggle/${id}`
+      );
       fetchCoupons(); // Refresh list after toggling
     } catch (error) {
       console.error("Error toggling coupon:", error);

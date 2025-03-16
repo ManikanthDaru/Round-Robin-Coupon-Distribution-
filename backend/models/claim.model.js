@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 
 const claimSchema = new mongoose.Schema({
     ip: {
-        type: String,
+        type: [String],
         required: true
     },
     sessionId: {

@@ -23,7 +23,8 @@ const CouponTable = () => {
   const toggleCoupon = async (id) => {
     try {
       await axios.patch(
-        `https://round-robin-coupon-distribution-backend.onrender.com/api/coupons/toggle/${id}`
+        `https://round-robin-coupon-distribution-backend.onrender.com/api/coupons/toggle/${id}`,
+        { withCredentials: true }
       );
       fetchCoupons(); // Refresh list after toggling
     } catch (error) {

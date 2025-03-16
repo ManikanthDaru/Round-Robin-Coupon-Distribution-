@@ -16,7 +16,8 @@ const AdminLogin = () => {
     try {
       const response = await axios.post(
         "https://round-robin-coupon-distribution-backend.onrender.com/api/auth/login",
-        { email, password }
+        { email, password },
+        { withCredentials: true }
       );
 
       // Store JWT token in localStorage

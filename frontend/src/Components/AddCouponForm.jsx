@@ -13,7 +13,8 @@ const AddCouponForm = ({ onCouponAdded }) => {
         {
           couponCode,
           description,
-        }
+        },
+        {withCredentials: true}
       );
       onCouponAdded();
       setCouponCode("");

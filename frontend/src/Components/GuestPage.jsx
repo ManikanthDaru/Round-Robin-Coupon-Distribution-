@@ -12,7 +12,7 @@ const GuestPage = () => {
     axios
       .post(
         "https://round-robin-coupon-distribution-backend.onrender.com/api/coupons/claim",
-        {}
+        { withCredentials: true }
       )
       .then((response) => {
         setCoupon({ couponCode: response.data.message.split(": ")[1] }); // Extract coupon code from message

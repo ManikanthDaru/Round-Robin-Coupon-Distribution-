@@ -13,7 +13,13 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 
-app.use(cors()); // allows cross origin resource sharing
+app.use(
+  cors({
+    origin: "https://round-robin-coupon-distribution-app.onrender.com", // Allow frontend
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    credentials: true,
+  })
+); // allows cross origin resource sharing
 app.use(express.json()); // payload is parse as JSON data
 
 app.use("/api/auth", authRoutes);

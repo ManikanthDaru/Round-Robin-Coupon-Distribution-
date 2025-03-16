@@ -17,8 +17,8 @@ const couponSchema = new mongoose.Schema({
         default: false
     },
     isClaimedBy: {
-        type: String, // stores Ip address of the user or session id
-        default: null
+        type: [String], // stores Ip address of the user or session id
+        default: []
     },
     isAvailable: {
         type: Boolean,

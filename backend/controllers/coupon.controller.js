@@ -20,14 +20,19 @@ export const getCoupons = async (req, res) => {
 
 // Claim a coupon
 export const claimCoupon = async (req, res) => {
-  const userIP = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+const userIPs = req.headers["x-forwarded-for"]
+      ? req.headers["x-forwarded-for"].split(",").map(ip => ip.trim())  // Get all IPs from proxy
+      : [req.socket.remoteAddress]; 
 
   const userSession = generateSessionId(req);
 
     try {
       // checks if any coupon is claimed with the specific IP or sessionId
     const existingClaim = await Claim.findOne({
-      $or: [{ ip: userIP }, { sessionId: userSession }],
+      $or: [
+        { ip: { $in: userIPs } },  // Check if any IP matches
+        { sessionId: userSession } // Check if session matches
+      ],
     });
 
     if (existingClaim) {
